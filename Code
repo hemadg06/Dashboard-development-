@@ -1,0 +1,29 @@
+# dashboard_app.py
+
+import dash
+from dash import html, dcc
+import pandas as pd
+import plotly.express as px
+
+# Create dummy data
+data = {
+    'Product': ['Apples', 'Oranges', 'Bananas', 'Grapes'],
+    'Sales': [120, 90, 150, 80]
+}
+df = pd.DataFrame(data)
+
+# Initialize app
+app = dash.Dash(__name__)
+
+# Create bar chart
+fig = px.bar(df, x='Product', y='Sales', title='Product Sales Dashboard')
+
+# Layout
+app.layout = html.Div(children=[
+    html.H1("Sales Dashboard", style={'textAlign': 'center'}),
+    dcc.Graph(figure=fig)
+])
+
+# Run app
+if __name__ == '__main__':
+    app.run_server(debug=True)
